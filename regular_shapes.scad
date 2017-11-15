@@ -87,6 +87,18 @@ module ellipse(width, height) {
   scale([1, height/width, 1]) circle(r=width/2);
 }
 
+module super_ellipse(a, b, n=2) {
+  // Find angles from $fa, $fs (needs rework)
+  for (f=[$fa:$fa:(360+$fa)]) {
+    //echo(f=f);
+    x0 = a*pow(abs(cos(f-$fa)), 2/n)*sign(cos(f-$fa));
+    y0 = b*pow(abs(sin(f-$fa)), 2/n)*sign(sin(f-$fa));
+    x1 = a*pow(abs(cos(f)), 2/n)*sign(cos(f));
+    y1 = b*pow(abs(sin(f)), 2/n)*sign(sin(f));
+    polygon([[0, 0], [x0, y0], [x1, y1]]);
+  }
+}
+
 // The ratio of lenght and width is about 1.39 for a real egg
 module egg_outline(width, length){
     translate([0, width/2, 0]) union(){
