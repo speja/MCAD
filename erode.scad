@@ -16,7 +16,7 @@
 /**
  * Erosion function
  *
- * Authors:
+ * Author:
  *   - Peter Janhäll, 2017
  *
  * License: LGPL 2.1
@@ -26,11 +26,18 @@
 /*
  * Erosion function:
  * - first erodes r1 from each surface
- * - then add r2 of cladding.
+ * - then adds r2 of cladding.
 */
 
-module erode(r1=0.5, r2=0.5) {
-  minkowski() {
+module erode(r1=0, r2=0) {
+  if (r1==0 && r2==0)
+    children();
+  else if (r1==0)
+    minkowski() {
+      #children();
+      sphere(r2);
+    }
+  else if (r2==0)
     difference() {
       children();
       minkowski() {
@@ -44,8 +51,23 @@ module erode(r1=0.5, r2=0.5) {
         sphere(r1);
       }
     }
-    sphere(r2);
-  }
+  else
+    minkowski() {
+      difference() {
+        children();
+        minkowski() {
+          difference() {
+            minkowski() {
+              children();
+              sphere(r1);
+            }
+            children();
+          }
+          sphere(r1);
+        }
+      }
+      sphere(r2);
+    }
 }
 
 
