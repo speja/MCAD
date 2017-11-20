@@ -87,15 +87,18 @@ module ellipse(width, height) {
   scale([1, height/width, 1]) circle(r=width/2);
 }
 
+// Halfaxes a, b and parameter n
 module super_ellipse(a, b, n=2) {
-  // Find angles from $fa, $fs (needs rework)
-  for (f=[$fa:$fa:(360+$fa)]) {
-    //echo(f=f);
-    x0 = a*pow(abs(cos(f-$fa)), 2/n)*sign(cos(f-$fa));
-    y0 = b*pow(abs(sin(f-$fa)), 2/n)*sign(sin(f-$fa));
-    x1 = a*pow(abs(cos(f)), 2/n)*sign(cos(f));
-    y1 = b*pow(abs(sin(f)), 2/n)*sign(sin(f));
-    polygon([[0, 0], [x0, y0], [x1, y1]]);
+  hull() {
+    // Find angles from $fa, $fs (TODO: needs rework)
+    for (f=[$fa:$fa:(360+$fa)]) {
+      //echo(f=f);
+      x0 = a*pow(abs(cos(f-$fa)), 2/n)*sign(cos(f-$fa));
+      y0 = b*pow(abs(sin(f-$fa)), 2/n)*sign(sin(f-$fa));
+      x1 = a*pow(abs(cos(f)), 2/n)*sign(cos(f));
+      y1 = b*pow(abs(sin(f)), 2/n)*sign(sin(f));
+      polygon([[0, 0], [x0, y0], [x1, y1]]);
+    }
   }
 }
 
