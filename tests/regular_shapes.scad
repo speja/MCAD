@@ -1,25 +1,19 @@
 use <../regular_shapes.scad>
+use <../math.scad>
 
 $fa = 1.0;
 $fs = 1.0;
 
-module symmetric_difference() {
-  // A\,\triangle \,B=(A\cup B)\smallsetminus (A\cap B)
-  difference() {
-    union() children();
-    intersection_for(c = [0:$children-1]) {
-      children(c);
-    }
-  }
+// Test symmetric_difference
+translate ([-30 , 0]) symmetric_difference() {
+  translate([0, 5*sqrt(3)]) circle(10);
+  translate([5, 0]) circle(10);
+  translate([-5, 0]) circle(10);
 }
+
 symmetric_difference() {
   super_ellipse(10, 10);
   circle(r=10);
-}
-
-*translate([0,20]) symmetric_difference(){
-  circle(10);
-  circle(20);
 }
 
 translate([20, 0]) symmetric_difference() {
