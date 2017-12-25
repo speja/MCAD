@@ -34,7 +34,7 @@ module erode(r1=0, r2=0) {
     children();
   else if (r1==0)
     minkowski() {
-      #children();
+      children();
       sphere(r2);
     }
   else if (r2==0)
@@ -69,5 +69,48 @@ module erode(r1=0, r2=0) {
       sphere(r2);
     }
 }
+
+
+module erode2d(r1=0, r2=0) {
+  if (r1==0 && r2==0)
+    children();
+  else if (r1==0)
+    minkowski() {
+      children();
+      circle(r2);
+    }
+  else if (r2==0)
+    difference() {
+      children();
+      minkowski() {
+        difference() {
+          minkowski() {
+            children();
+            circle(r1);
+          }
+          children();
+        }
+        circle(r1);
+      }
+    }
+  else
+    minkowski() {
+      difference() {
+        children();
+        minkowski() {
+          difference() {
+            minkowski() {
+              children();
+              circle(r1);
+            }
+            children();
+          }
+          circle(r1);
+        }
+      }
+      circle(r2);
+    }
+}
+
 
 

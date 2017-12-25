@@ -27,3 +27,12 @@ module symmetric_difference() {
       }
     }
 }
+
+module girder(p1, p2) {
+  d = p2-p1;
+  h = norm(d);  // radial distance
+  b = acos(d[2]/h); // inclination angle
+  c = atan2(d[1], d[0]);     // azimuthal angle
+
+  translate(p1) rotate([0, b, c]) linear_extrude(height=h) children();
+}
